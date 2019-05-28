@@ -18,7 +18,7 @@ $(document).ready(function () {
 
         var footer = `
         <button class="btn btn-success" id="btnThem">Thêm</button>
-        <button class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button class="btn btn-danger" id = "btnClose" data-dismiss="modal">Close</button>
         `;
 
         $('.modal-footer').html(footer);
