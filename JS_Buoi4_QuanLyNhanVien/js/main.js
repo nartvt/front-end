@@ -1,6 +1,7 @@
-//# load localStorage, if exists
-layDuLieu();
 
+//# load localStorage, if exists
+
+layDuLieu();
 
 getElementById("btnThem").addEventListener("click", function () {
   getElementById("btnCapNhat").style.display = "none";
@@ -12,7 +13,7 @@ getElementById("btnThemNV").addEventListener("click", function () {
   //clearInputForm("msnv", "name", "email", "password");
 
   var maNhanVien = getElementById("msnv").value;
-  if (kiemTraBiTrung(maNhanVien, "msnv", "(*) Ma Nhan Vien Bi Trung") === true) {
+ 
 
     var tenNhanVien = getElementById("name").value;
     var email = getElementById("email").value;
@@ -22,7 +23,7 @@ getElementById("btnThemNV").addEventListener("click", function () {
 
 
     var isValid = true;
-    isValid &= validation.isEmpty(maNhanVien, "tbMaNV", "(*)  Vui Long nhap Ma NV");
+    isValid &= validation.isEmpty(maNhanVien, "tbMaNV", "(*)  Vui Long nhap Ma NV") && validation.kiemTraBiTrung(maNhanVien, "tbMaNV", "(*) Ma Nhan Vien Bi Trung",danhSachNhanVien);
     // &&   validation.validateLength(maNhanVien, "tbMaNV", "(*)  Ma Nhan Vien tu 6 - 12", 6, 12);
     isValid &= validation.isEmpty(tenNhanVien, "tbTen", "(*)  Vui long nhap Ten NV") && validation.validationString(tenNhanVien, "tbTen", "(*)  Vui long ki  tu", regexCharactor);
     isValid &= validation.isEmpty(email, "tbEmail", "(*)  Vui Long nhap email NV") && validation.validationString(email, "tbEmail", "(*)  Vui long Nhap dung dinh dang email ", regexEmail);
@@ -31,16 +32,17 @@ getElementById("btnThemNV").addEventListener("click", function () {
 
     if (isValid) {
       var nhanVien = new NhanVien(maNhanVien, tenNhanVien, email, matKhau, date, chucVu);
-      danhSacNhanVien.themNhanVien(nhanVien);
-      addToTableStringTemplate(danhSacNhanVien.mangNhanVien);
-      console.log(danhSacNhanVien.mangNhanVien);
-      setLocalStorage();
-      getElementById("btnDong")
+      danhSachNhanVien.themNhanVien(nhanVien);
+      addToTableStringTemplate(danhSachNhanVien.mangNhanVien);
+      console.log(danhSachNhanVien.mangNhanVien);
+      setLocalStorage();   
+      getElementById("btnThemNV").setAttribute("data-dismiss","modal");   
+      
     }
     clearInputForm("msnv", "name", "email", "password");
     //  clearInput("msnv","name","email","password","chucvu");
 
-  }
+  
 
 });
 
@@ -53,10 +55,10 @@ getElementById("searchName").addEventListener("keyup", function () {
 
 
 
-function addToTableStringTemplate(danhSacNhanViens) {
+function addToTableStringTemplate(danhSachNhanViens) {
   var tbodyNhanVien = getElementById("tableDanhSach");
   var content = ``;
-  danhSacNhanViens.map(item => {
+  danhSachNhanViens.map(item => {
 
     content += `
       <tr>
@@ -80,8 +82,8 @@ function addToTableStringTemplate(danhSacNhanViens) {
 }
 
 function deleteNhanVien(code) {
-  danhSacNhanVien.xoaNhanVien(code);
-  addToTableStringTemplate(danhSacNhanVien.mangNhanVien);
+  danhSachNhanVien.xoaNhanVien(code);
+  addToTableStringTemplate(danhSachNhanVien.mangNhanVien);
   setLocalStorage();
 }
 
@@ -91,7 +93,7 @@ function editNhanVien(codeNhanVien) {
   getElementById("btnCapNhat").style.display = "block";
 
   // not get full data from form becase in the  case, column  show not full field , have only id 
-  var nhanVien = danhSacNhanVien.layThongTinNhanvien(codeNhanVien);
+  var nhanVien = danhSachNhanVien.layThongTinNhanvien(codeNhanVien);
 
   getElementById("msnv").value = codeNhanVien;
   getElementById("msnv").disabled = true;
@@ -111,20 +113,21 @@ getElementById("btnCapNhat").addEventListener("click", function () {
   var chucVu = getElementById("chucvu").value;
 
   var nhanVien = new NhanVien(maNhanVien, tenNhanVien, email, matKhau, date, chucVu);
-  danhSacNhanVien.updateNhanVien(nhanVien);
-  addToTableStringTemplate(danhSacNhanVien.mangNhanVien);
+  danhSachNhanVien.updateNhanVien(nhanVien);
+  addToTableStringTemplate(danhSachNhanVien.mangNhanVien);
   setLocalStorage();
+  
 
 });
 
 function setLocalStorage() {
-  localStorage.setItem(danhsachnhanviensLocalstorages, JSON.stringify(danhSacNhanVien.mangNhanVien));
+  window.localStorage.setItem(danhsachnhanviensLocalstorages, JSON.stringify(danhSachNhanVien.mangNhanVien));
 }
 
 
 function getLocalStorage() {
   var data = [];
-  if (localStorage.getItem(danhsachnhanviensLocalstorages) != null) {
+  if (window.localStorage.getItem(danhsachnhanviensLocalstorages) != null) {
     data = JSON.parse(localStorage.getItem(danhsachnhanviensLocalstorages));
   }
   return data;
@@ -132,14 +135,14 @@ function getLocalStorage() {
 
 function layDuLieu() {
 
-  danhSacNhanVien.mangNhanVien = getLocalStorage();
-  addToTableStringTemplate(danhSacNhanVien.mangNhanVien);
+  danhSachNhanVien.mangNhanVien = getLocalStorage();
+  addToTableStringTemplate(danhSachNhanVien.mangNhanVien);
 }
 
-// function addToTable(danhSacNhanViens) {
+// function addToTable(danhSachNhanViens) {
 //   var tbodyNhanVien = getElementById("tableDanhSach");
 //   tbodyNhanVien.innerHTML = "";
-//   danhSacNhanViens.map(nhanvien => {
+//   danhSachNhanViens.map(nhanvien => {
 //     var trNhanVien = createNode("tr");
 
 //     var tdMaNhanVien = createNode("td");

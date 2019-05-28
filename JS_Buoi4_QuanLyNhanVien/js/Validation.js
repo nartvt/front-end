@@ -1,5 +1,17 @@
-function validation() {
+function Validation() {
 
+    this.kiemTraBiTrung = function (input, spandId, message, danhSachNhanVien) {
+        var check = !danhSachNhanVien.mangNhanVien.some(item => {
+            return item.maNhanVien === input;
+        });
+        if (check) {
+            this.setType(spandId, "", "none");
+            return true;
+        }
+        this.setType(spandId, message, "block");
+        return false;
+
+    };
     this.validateLength = function (inputValue, spanId, message, min, max) {
         if (inputValue.length >= min && inputValue.length <= max) {
             this.setType(spanId, "", "none")
@@ -43,19 +55,4 @@ function validation() {
         return false;
     };
 
-}
-var danhSachNhanVien = new DanhSachNhanVien();
-
-function kiemTraBiTrung(input, spandId, message) {
-    danhSacNhanVien.mangNhanVien.map(item => {
-        if(input===item.maNhanvien){
-            getElementById(spandId).innerHTML=message;
-            getElementById(spandId).style.display="block";
-            return false;
-        }else{
-            getElementById(spandId).innerHTML="";
-            //getElementById(spandId).style.display="none";
-            return true;
-        }
-    });
 }

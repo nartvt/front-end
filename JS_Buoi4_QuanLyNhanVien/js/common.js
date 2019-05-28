@@ -1,9 +1,8 @@
 
-
   
   //#  Define attibute global for use
-  var validation = new validation();
-  var danhSacNhanVien = new DanhSachNhanVien();
+  var validation = new Validation();
+  var danhSachNhanVien = new DanhSachNhanVien();
   var danhsachnhanviensLocalstorages ="danhsachnhanviensLocalstorages";
   var regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   var regexCharactor = new RegExp("^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ" + "ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ" + "ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]+$");

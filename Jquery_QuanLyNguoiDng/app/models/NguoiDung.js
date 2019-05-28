@@ -4,6 +4,4 @@ function NguoiDung(_taiKhoan, _hoTen,_matKhau, _email,_soDienThoai){
     this.matKhau=_matKhau;
     this.email=_email;
     this.soDienThoai=_soDienThoai;
-
-
 }
