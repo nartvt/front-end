@@ -7,7 +7,7 @@ function DanhSachNguoiDung() {
 
   this.timNguoiDungById = function (taiKhoanId) {
     return this.mangNguoiDung.find(item => {
-      return (item.taiKhoan == taiKhoanId);
+      return (item.taiKhoan === taiKhoanId);
     })
   }
 
@@ -22,3 +22,11 @@ function DanhSachNguoiDung() {
     });
   }
 }
+
+DanhSachNguoiDung.prototype.deleteNguoiDung = function(taiKhoan){
+  let index = this.mangNguoiDung.findIndex(function(item){
+    return (item.taiKhoan===taiKhoan);
+  });
+  this.mangNguoiDung.splice(index,1);
+
+};
