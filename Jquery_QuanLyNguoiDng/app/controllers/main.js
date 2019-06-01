@@ -1,6 +1,5 @@
 $(document).ready(function () {
-
-
+ 
   // $('#id').val()// dom id
   // $(".class").val()//dom  class
 
@@ -17,9 +16,15 @@ $(document).ready(function () {
   $('#btnThemNguoiDung').click(function () {
     let title = "Thêm Người Dùng";
     //Heading Modal  
-    addTitle(title);
-    addFooter("btnThem");
-    clearForm("TaiKhoan","HoTen","MatKhau","Email","SoDienThoai");
+    //addTitle(title);
+    //addFooter("btnThem");
+    $('.modal-title').html(title);
+    let footer = `
+    <button class="btn btn-success" id="btnThem">Thêm</button>
+    <button class="btn btn-danger" id = "btnClose" data-dismiss="modal">Close</button>
+    `;
+    $('.modal-footer').html(footer);
+
   });
 
   // uy quyen, khi id chua duoc tao ra
@@ -37,29 +42,30 @@ $(document).ready(function () {
     isValid &= validation.isEmpty(MatKhau, "MatKhau", messagePassword);
     isValid &= validation.isEmpty(Email, "Email", messageEmail) && validation.patternValidation(Email, "Email", messageEmailFormat, regexEmail);
     isValid &= validation.isEmpty(SoDienThoai, "SoDienThoai", messagePhoneNumber);
-    
-    if(isValid){
-    var nguoiDung = new NguoiDung(taiKhoan, hoTen, MatKhau, Email, SoDienThoai);
-    danhSachNguoiDung.themNguoiDung(nguoiDung);
-    setDataTableLocalStorage();
 
-    //call to close button for close form
-    $('#btnClose').click();
+    if (isValid) {
+      var nguoiDung = new NguoiDung(taiKhoan, hoTen, MatKhau, Email, SoDienThoai);
+      danhSachNguoiDung.themNguoiDung(nguoiDung);
+      setDataTableLocalStorage();
+
+      //call to close button for close form
+      $('#btnClose').click();
 
     }
+    location.reload();
   });
 
 
   $('body').delegate('#btnEdit', 'click', function () {
     //var taiKhoanId =   $('#id_taiKhoan').val();
 
-    var taiKhoanId = $(this).data("taikhoan");
 
     let title = "Update Nguoi Dung";
     addTitle(title);
     addFooter("btnUpdate");
+    var taiKhoanId = $(this).data("taikhoan");
     editNguoiDung(taiKhoanId);
-
+   
   });
 
 

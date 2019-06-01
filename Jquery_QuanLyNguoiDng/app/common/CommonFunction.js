@@ -13,22 +13,22 @@ var regexCharactor = new RegExp("^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐ�
 
 
 
-function addFooter(id){
+function addFooter(id) {
     let footer = `
     <button class="btn btn-success" id="${id}">Thêm</button>
     <button class="btn btn-danger" id = "btnClose" data-dismiss="modal">Close</button>
     `;
     $('.modal-footer').html(footer);
-  }
-  function addTitle(title){
-    $('.modal-title').html(title);
-  }
-  
-function clearForm(){
-    arguments.map(item =>{
-       getElementById(item).value="";
-    });
 }
+function addTitle(title) {
+    $('.modal-title').html(title);
+}
+
+// function clearForm(){
+//     arguments.map(item =>{
+//        getElementById(item).value="";
+//     });
+// }
 
 
 function setLocalStorage(danhsachnguoidungs) {
@@ -57,17 +57,17 @@ function getMangNguoiDung() {
     return danhSachNguoiDung.mangNguoiDung;
 }
 
-function setDataTableLocalStorage() {
-    setDataToTableStringTemplate(getMangNguoiDung());
-    setLocalStorage(getMangNguoiDung());
+function setDataTableLocalStorage(danhSachNguoiDungs) {
+    setDataToTableStringTemplate(danhSachNguoiDungs);
+    setLocalStorage(danhSachNguoiDungs);
 }
 function deleteNguoiDung(taikhoan) {
     danhSachNguoiDung.deleteNguoiDung(taikhoan);
-    setDataTableLocalStorage();
+    setDataTableLocalStorage(getMangNguoiDung());
 }
 //
 function editNguoiDung(taiKhoanId) {
-   
+
     let nguoidung = danhSachNguoiDung.timNguoiDungById(taiKhoanId);
     $('#TaiKhoan').val(taiKhoanId);
     $('#HoTen').val(nguoidung.hoTen);
@@ -81,14 +81,14 @@ function editNguoiDung(taiKhoanId) {
     let Email = $('#Email').val();
     let SoDienThoai = $('#SoDienThoai').val();
 
-    let nguoiDung = new NguoiDung(taiKhoan,hoTen,MatKhau,Email,SoDienThoai);
+    let nguoiDung = new NguoiDung(taiKhoan, hoTen, MatKhau, Email, SoDienThoai);
     danhSachNguoiDung.updateNguoidung(nguoiDung);
 
-    setDataTableLocalStorage();
+    setDataTableLocalStorage(getMangNguoiDung());
 
-  }
- 
- getElementById = function(id){
+}
+
+function getElementById(id) {
     return document.getElementById(id);
 }
 function setDataToTableStringTemplate(danhSachNguoiDungs) {
