@@ -10,6 +10,8 @@ $(document).ready(function () {
   // });
   // var danhSachNguoiDung = new DanhSachNguoiDung();
   // var danhsachnguoidungsLocalStorageItem = "danhsachnguoidungs";
+
+  var validation = new Validation();
   loadLocalStorage();
 
   $('#btnThemNguoiDung').click(function () {
@@ -17,6 +19,7 @@ $(document).ready(function () {
     //Heading Modal  
     addTitle(title);
     addFooter("btnThem");
+    clearForm("TaiKhoan","HoTen","MatKhau","Email","SoDienThoai");
   });
 
   // uy quyen, khi id chua duoc tao ra

@@ -1,4 +1,4 @@
-function validation() {
+function Validation() {
 
     this.validateLength = function (inputValue, spanId, message, min, max) {
         if (inputValue.length >= min && inputValue.length <= max) {
@@ -18,16 +18,11 @@ function validation() {
         return false;
     };
 
-    this.setType = function (id, message, style) {
-
-        
-        this.getElementById(id).innerHTML = message;
-        this.getElementById(id).style.display = style;
+    this.setType = function (id, message, style) {        
+        getElementById(id).innerHTML = message;
+        getElementById(id).style.display = style;
     };
 
-    this.getElementById = function(id){
-        return document.getElementById(id);
-    }
 
     this.isEmpty = function (inputValue, spanId, message) {
         if (inputValue === "") {

@@ -7,7 +7,6 @@ var messagePhoneNumber = '(*) So Dien Thoai Bi Rong';
 
 var danhSachNguoiDung = new DanhSachNguoiDung();
 var danhsachnguoidungsLocalStorageItem = "danhsachnguoidungs";
-var validation = new validation();
 
 var regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 var regexCharactor = new RegExp("^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ" + "ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ" + "ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]+$");
@@ -25,7 +24,11 @@ function addFooter(id){
     $('.modal-title').html(title);
   }
   
-
+function clearForm(){
+    arguments.map(item =>{
+       getElementById(item).value="";
+    });
+}
 
 
 function setLocalStorage(danhsachnguoidungs) {
@@ -43,8 +46,8 @@ function getLocalStorage() {
 
 function loadLocalStorage() {
     // first load localStorage
-    this.setMangNguoiDung(getLocalStorage());
-    this.setDataToTableStringTemplate(getMangNguoiDung());
+    setMangNguoiDung(getLocalStorage());
+    setDataToTableStringTemplate(getMangNguoiDung());
 }
 
 function setMangNguoiDung(mangNguoiDungs) {
@@ -55,8 +58,8 @@ function getMangNguoiDung() {
 }
 
 function setDataTableLocalStorage() {
-    this.setDataToTableStringTemplate(getMangNguoiDung());
-    this.setLocalStorage(getMangNguoiDung());
+    setDataToTableStringTemplate(getMangNguoiDung());
+    setLocalStorage(getMangNguoiDung());
 }
 function deleteNguoiDung(taikhoan) {
     danhSachNguoiDung.deleteNguoiDung(taikhoan);
@@ -85,6 +88,9 @@ function editNguoiDung(taiKhoanId) {
 
   }
  
+ getElementById = function(id){
+    return document.getElementById(id);
+}
 function setDataToTableStringTemplate(danhSachNguoiDungs) {
     var tbodyDom = $('#tblDanhSachNguoiDung');
     var content = ``;
