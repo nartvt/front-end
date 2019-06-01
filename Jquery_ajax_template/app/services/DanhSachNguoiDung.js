@@ -2,42 +2,59 @@ function DanhSachNguoiDung() {
   //this.mangNguoiDung = [];
 
   this.layDanhSachNguoiDungApi = function () {
-    $.ajax({
+    return $.ajax({
       url: 'http://svcy.myclass.vn/api/QuanLyTrungTam/DanhSachNguoiDung',
-      type: 'GET',
-      dataType : "json"
-    })
-      .done(function (data) {
-        createTableNguoiDung(data);
-        console.log(data);
-        
+      type: 'GET'
+    });     //console.log(this.mangNguoiDung);
 
-      }).fail(function (error) {
-        console.log(error);
-
-      });
-      //console.log(this.mangNguoiDung);
-      
   }
+
+  this.themNguoiDung = function (nguoiDung) {
+    return $.ajax({
+      url: 'http://svcy.myclass.vn/api/QuanLyTrungTam/ThemNguoiDung',
+      type: 'POST',
+      data: nguoiDung
+    }).done(function (data) {
+      if (data === "tai khoan da ton tai") {
+        alert(data);
+      } else {
+        location.reload();
+      }
+    }).fail(function (error) {
+      console.log(error);
+    });
+  }
+  this.deleteNguoiDung = function (id) {
+    return $.ajax({
+      url: `http://svcy.myclass.vn/api/QuanLyTrungTam/XoaNguoiDung/${id}`,
+      type: 'DELETE',
+    }).done(function (data) {
+      location.reload();
+    }).fail(function (error) {
+      console.log(error);
+
+    });
+  }
+  this.layThongTinNguoiDung=function(taiKhoan){
+    var mangNguoiDung=JSON.parse(localStorage.getItem("DSND"));
+    return mangNguoiDung.find(function (item){
+      return (item.TaiKhoan===taiKhoan);
+    });
+  };
+this.capNhatThongTinNguoiDung = function(nguoidung){
+  var stringAgr = JSON.stringify(nguoidung);
+  $.ajax({
+    url: 'http://svcy.myclass.vn/api/QuanLyTrungTam/CapNhatThongTinNguoiDung',
+    type: 'PUT',
+    data: stringAgr,// nguoidung
+    contentType: 'application/json',
+    dataType: 'json'
+  }).done(function(data){
+    console.log(data);
+  }).fail(function(error){
+    console.log(error);
+    
+  });
+}
 }
 
-function createTableNguoiDung(danhSachNguoiDungs){
-  var tbodyDom = $('#tblDanhSachNguoiDung');
-  var content = ``;
-  danhSachNguoiDungs.map((item, index) => {
-      content += `<tr>
-                  <td>${index + 1}</td>
-                  <td >${item.TaiKhoan}</td>
-                  <td>${item.HoTen}</td>
-                  <td>${item.Email}</td>
-                  <td>${item.MatKhau}</td>
-                  <td>${item.SoDT}</td>
-               
-                  <td>
-                  <button class="btn btn-primary" id="btnSua" data-toggle="modal" data-target="#myModal" data-taikhoan="${item.TaiKhoan}">Sửa</button>
-                  <button class="btn btn-danger" id="btnXoa" onClick="deleteNguoiDung('${item.TaiKhoan}')">Delete</button>
-                </td>
-              </tr>`;
-  });
-  tbodyDom.html(content);
-}
