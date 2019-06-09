@@ -1,0 +1,32 @@
+@mixin contentformat($width, $bg,$pd) {
+    background-color: $bg;
+    text-align: center;
+    padding: $pd 0;
+    width: $width;
+  //  color: white;
+}
+@mixin header_footer($bg) {
+      background-color: $bg;
+      text-align: center;
+      padding: 10px 0;     
+      color: white;
+    
+}
+.header {
+   @include header_footer(red);
+}
+
+.contents {
+    display: flex;
+    text-align: center;
+    .content {
+        @include contentformat(90%, blue,100px);
+    }
+
+    .sidebar {
+        @include contentformat(10%, yellow,30px);
+    }
+}
+.footer{
+       @include header_footer(green);
+}
